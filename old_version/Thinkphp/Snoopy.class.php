@@ -1099,8 +1099,8 @@ class Snoopy
 		// no framed content
 		else
 			$this->results = $results;
-		if ($headerfile)
-			unlink("$headerfile");
+		if (isset($headerfile) && file_exists($headerfile))
+			unlink($headerfile);
 
 		return true;
 	}
@@ -1220,7 +1220,7 @@ class Snoopy
 		if (count($formvars) == 0 && count($formfiles) == 0)
 			return;
 		if (is_string($formvars)) return $formvars;
-		if(count($formvars) == 1) return $formvars[0];
+		if((count($formvars) == 1) && isset($formvars[0])) return $formvars[0];
 		switch ($this->_submit_type) {
 			case "application/x-www-form-urlencoded":
 				reset($formvars);
